@@ -22,113 +22,289 @@
     </div>
 </div>
 
-<div class="max-w-4xl mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <!-- Main Form -->
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-3">
             <div class="bg-white rounded-2xl shadow-card p-8">
                 <div class="mb-8">
-                    <h2 class="text-2xl font-bold text-secondary mb-4">Employee Access & Training</h2>
+                    <h2 class="text-2xl font-bold text-secondary mb-4">Employee Access, Training & Incident Response</h2>
                     <p class="text-gray-600">
-                        Employee training and access controls are the foundation of your data security program.
+                        Complete the employee management, qualified individual information, and incident response details.
                     </p>
                 </div>
 
-                <form method="POST" class="space-y-6">
+                <form method="POST" class="space-y-8">
                     {{ form.hidden_tag() }}
                     
-                    <div class="bg-gray-50 rounded-lg p-6">
-                        <h3 class="text-lg font-semibold text-secondary mb-4">Access Controls</h3>
+                    <!-- Basic Access Controls -->
+                    <div class="bg-gray-50 rounded-lg p-6 space-y-4">
+                        <h3 class="text-lg font-semibold text-secondary">Access Controls & Training</h3>
                         
-                        <div class="space-y-4">
-                            <div class="flex items-start p-3 bg-white rounded-lg border">
-                                {{ form.access_control(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
-                                <div class="ml-3">
-                                    <label for="{{ form.access_control.id }}" class="text-sm font-medium text-secondary">
-                                        Do you have role-based access controls?
-                                        <span class="relative inline-block ml-2" data-tooltip="Employees should only access data necessary for their job functions">
-                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                        </span>
-                                    </label>
-                                    <p class="text-xs text-gray-600 mt-1">
-                                        Different employees have different levels of access based on their job responsibilities
-                                    </p>
-                                </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.access_control(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.access_control.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Role-based access controls
+                                </label>
                             </div>
                             
-                            <div class="flex items-start p-3 bg-white rounded-lg border">
-                                {{ form.background_checks(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
-                                <div class="ml-3">
-                                    <label for="{{ form.background_checks.id }}" class="text-sm font-medium text-secondary">
-                                        Do you conduct background checks for employees with data access?
-                                        <span class="relative inline-block ml-2" data-tooltip="Background checks help verify employee trustworthiness">
-                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                        </span>
-                                    </label>
-                                    <p class="text-xs text-gray-600 mt-1">
-                                        Especially important for employees handling sensitive financial or personal data
-                                    </p>
-                                </div>
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.employee_training(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.employee_training.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Regular security awareness training
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.background_checks(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.background_checks.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Background checks for data access
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.incident_response(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.incident_response.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Written incident response plan
+                                </label>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="bg-gray-50 rounded-lg p-6">
-                        <h3 class="text-lg font-semibold text-secondary mb-4">Security Training</h3>
                         
-                        <div class="space-y-4">
-                            <div class="flex items-start p-3 bg-white rounded-lg border">
-                                {{ form.employee_training(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
-                                <div class="ml-3">
-                                    <label for="{{ form.employee_training.id }}" class="text-sm font-medium text-secondary">
-                                        Do you provide regular security awareness training?
-                                        <span class="relative inline-block ml-2" data-tooltip="Regular training keeps employees aware of current threats and best practices">
-                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                        </span>
-                                    </label>
-                                    <p class="text-xs text-gray-600 mt-1">
-                                        Training should cover phishing, password security, data handling, and incident reporting
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <div class="mt-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
                                 <label for="{{ form.training_frequency.id }}" class="block text-sm font-semibold text-secondary mb-2">
-                                    How often do you conduct security training?
-                                    <span class="relative inline-block ml-2" data-tooltip="More frequent training improves security awareness">
-                                        <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
-                                    </span>
+                                    Training Frequency
                                 </label>
-                                {{ form.training_frequency(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors") }}
+                                {{ form.training_frequency(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent") }}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.security_awareness_method.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    Security Awareness Training Method
+                                </label>
+                                {{ form.security_awareness_method(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="e.g., Online training, In-person sessions") }}
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-gray-50 rounded-lg p-6">
-                        <h3 class="text-lg font-semibold text-secondary mb-4">Incident Response</h3>
+                    <!-- Employee Management -->
+                    <div class="bg-blue-50 rounded-lg p-6 space-y-4">
+                        <h3 class="text-lg font-semibold text-secondary">Employee Management</h3>
                         
-                        <div class="flex items-start p-3 bg-white rounded-lg border">
-                            {{ form.incident_response(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
-                            <div class="ml-3">
-                                <label for="{{ form.incident_response.id }}" class="text-sm font-medium text-secondary">
-                                    Do you have a written incident response plan?
-                                    <span class="relative inline-block ml-2" data-tooltip="A documented plan ensures quick and effective response to security incidents">
-                                        <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
-                                    </span>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.confidentiality_agreements(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.confidentiality_agreements.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    All employees sign confidentiality agreements
                                 </label>
-                                <p class="text-xs text-gray-600 mt-1">
-                                    The plan should define roles, notification procedures, and steps to contain and recover from incidents
-                                </p>
+                            </div>
+                            
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.employee_access_review(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.employee_access_review.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Regular review of employee access rights
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.employee_termination_process(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.employee_termination_process.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Formal process for revoking access when employees leave
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.remote_work_policy(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.remote_work_policy.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Written remote work security policy
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Qualified Individual Information -->
+                    <div class="bg-yellow-50 rounded-lg p-6 space-y-4">
+                        <h3 class="text-lg font-semibold text-secondary">Qualified Individual Information <span class="text-red-500">*</span></h3>
+                        <p class="text-sm text-gray-600">The FTC Safeguards Rule requires designation of a Qualified Individual</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="{{ form.qualified_individual_name.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    Qualified Individual Name <span class="text-red-500">*</span>
+                                </label>
+                                {{ form.qualified_individual_name(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Full name of the qualified individual") }}
+                                {% if form.qualified_individual_name.errors %}
+                                    <p class="text-red-500 text-xs mt-1">{{ form.qualified_individual_name.errors[0] }}</p>
+                                {% endif %}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.qualified_individual_supervisor.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    Reports To
+                                </label>
+                                {{ form.qualified_individual_supervisor(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Supervisor or manager") }}
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="{{ form.qualified_individual_qualifications.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                Qualifications/Experience
+                            </label>
+                            {{ form.qualified_individual_qualifications(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", rows="3", placeholder="Describe cybersecurity qualifications and experience") }}
+                        </div>
+                    </div>
+
+                    <!-- Incident Response Team -->
+                    <div class="bg-red-50 rounded-lg p-6 space-y-4">
+                        <h3 class="text-lg font-semibold text-secondary">Incident Response Team</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="{{ form.incident_coordinator_name.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    Incident Coordinator Name
+                                </label>
+                                {{ form.incident_coordinator_name(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Primary incident coordinator") }}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.incident_coordinator_phone.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    Coordinator Phone
+                                </label>
+                                {{ form.incident_coordinator_phone(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Phone number") }}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.incident_team_member_1.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    Team Member #1
+                                </label>
+                                {{ form.incident_team_member_1(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Team member name") }}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.incident_team_member_1_phone.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    Team Member #1 Phone
+                                </label>
+                                {{ form.incident_team_member_1_phone(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Phone number") }}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.incident_team_member_2.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    Team Member #2
+                                </label>
+                                {{ form.incident_team_member_2(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Team member name") }}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.incident_team_member_2_phone.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    Team Member #2 Phone
+                                </label>
+                                {{ form.incident_team_member_2_phone(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Phone number") }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Incident Response Contacts -->
+                    <div class="bg-purple-50 rounded-lg p-6 space-y-4">
+                        <h3 class="text-lg font-semibold text-secondary">Incident Response Contacts</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="{{ form.tech_company.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    IT Support Company
+                                </label>
+                                {{ form.tech_company(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Primary IT support company") }}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.tech_company_phone.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    IT Support Phone
+                                </label>
+                                {{ form.tech_company_phone(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Phone number") }}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.legal_counsel_name.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    Legal Counsel
+                                </label>
+                                {{ form.legal_counsel_name(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Legal counsel name") }}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.legal_counsel_phone.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    Legal Counsel Phone
+                                </label>
+                                {{ form.legal_counsel_phone(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Phone number") }}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.insurance_broker.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    Insurance Broker/Company
+                                </label>
+                                {{ form.insurance_broker(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Insurance provider") }}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.insurance_policy.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    Insurance Policy Information
+                                </label>
+                                {{ form.insurance_policy(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent", placeholder="Policy number/details") }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testing and Monitoring -->
+                    <div class="bg-green-50 rounded-lg p-6 space-y-4">
+                        <h3 class="text-lg font-semibold text-secondary">Testing and Monitoring</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.annual_penetration_test(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.annual_penetration_test.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Annual penetration testing conducted
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.vulnerability_assessments(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.vulnerability_assessments.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Regular vulnerability assessments
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.system_scans(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.system_scans.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    System-wide security scans every six months
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.security_awareness_testing(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.security_awareness_testing.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Phishing simulation testing for employees
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EFIN Monitoring -->
+                    <div class="bg-indigo-50 rounded-lg p-6 space-y-4">
+                        <h3 class="text-lg font-semibold text-secondary">EFIN Monitoring (Tax Preparers)</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.efin_monitoring_process(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.efin_monitoring_process.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    EFIN monitoring process implemented
+                                </label>
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.efin_status_check_frequency.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    EFIN Status Check Frequency
+                                </label>
+                                {{ form.efin_status_check_frequency(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent") }}
                             </div>
                         </div>
                     </div>
@@ -157,41 +333,31 @@
             <div class="bg-green-50 rounded-2xl p-6 mb-6 border border-green-200">
                 <h3 class="text-lg font-semibold text-green-800 mb-4">Almost Done!</h3>
                 <p class="text-sm text-green-700 mb-3">
-                    You're on the final step. After completing this section, your WISP will be generated automatically.
+                    Complete the required fields to generate your comprehensive WISP document.
                 </p>
                 <div class="text-sm text-green-700">
                     <p class="font-semibold mb-2">What happens next:</p>
                     <ul class="space-y-1">
-                        <li>• WISP document generated</li>
-                        <li>• PDF ready for download</li>
+                        <li>• Complete WISP document generated</li>
+                        <li>• Professional PDF ready for download</li>
                         <li>• Saved to your dashboard</li>
+                        <li>• Compliant with FTC and IRS requirements</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="bg-primary/5 rounded-2xl p-6 mb-6">
-                <h3 class="text-lg font-semibold text-secondary mb-4">Training Topics</h3>
-                <ul class="space-y-2 text-sm text-gray-700">
-                    <li>• Password security best practices</li>
-                    <li>• Phishing recognition</li>
-                    <li>• Social engineering awareness</li>
-                    <li>• Data handling procedures</li>
-                    <li>• Clean desk policy</li>
-                    <li>• Mobile device security</li>
-                    <li>• Incident reporting procedures</li>
-                </ul>
+            <div class="bg-yellow-50 rounded-2xl p-6 mb-6 border border-yellow-200">
+                <h3 class="text-lg font-semibold text-yellow-800 mb-4">Required Fields</h3>
+                <p class="text-sm text-yellow-700">
+                    The <strong>Qualified Individual Name</strong> is required by the FTC Safeguards Rule. Other fields are optional but recommended for a complete WISP.
+                </p>
             </div>
 
-            <div class="bg-accent/5 rounded-2xl p-6">
-                <h3 class="text-lg font-semibold text-secondary mb-4">Human Factor</h3>
+            <div class="bg-primary/5 rounded-2xl p-6">
+                <h3 class="text-lg font-semibold text-secondary mb-4">Incident Response</h3>
                 <p class="text-sm text-gray-700 mb-3">
-                    95% of successful cyber attacks are due to human error. Employee training is your strongest defense.
+                    Having a well-defined incident response team and contacts is crucial for rapid response to security incidents.
                 </p>
-                <ul class="space-y-2 text-sm text-gray-700">
-                    <li>• Regular training reduces risk by 70%</li>
-                    <li>• Simulated phishing helps awareness</li>
-                    <li>• Clear policies prevent mistakes</li>
-                </ul>
             </div>
         </div>
     </div>

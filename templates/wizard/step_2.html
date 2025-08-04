@@ -107,6 +107,158 @@
                         </p>
                     </div>
 
+                    <!-- PII Inventory Section -->
+                    <div class="bg-gray-50 rounded-lg p-6 space-y-6">
+                        <h3 class="text-lg font-semibold text-secondary">PII Inventory Details</h3>
+                        <p class="text-sm text-gray-600">
+                            Please provide specific information about where your PII is stored. This helps create a comprehensive inventory for your WISP.
+                        </p>
+                        
+                        <!-- Third-party Apps -->
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-secondary">Third-party Applications</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="{{ form.third_party_apps_1.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                        {{ form.third_party_apps_1.label.text }}
+                                        <span class="relative inline-block ml-2" data-tooltip="{{ form.third_party_apps_1.description }}">
+                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                    {{ form.third_party_apps_1(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", placeholder="e.g., QuickBooks, Salesforce") }}
+                                </div>
+                                <div>
+                                    <label for="{{ form.third_party_apps_2.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                        {{ form.third_party_apps_2.label.text }}
+                                    </label>
+                                    {{ form.third_party_apps_2(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", placeholder="e.g., Xero, HubSpot") }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Cloud Providers -->
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-secondary">Cloud Providers</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="{{ form.cloud_providers_1.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                        {{ form.cloud_providers_1.label.text }}
+                                        <span class="relative inline-block ml-2" data-tooltip="{{ form.cloud_providers_1.description }}">
+                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                    {{ form.cloud_providers_1(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", placeholder="e.g., Google Drive, Dropbox") }}
+                                </div>
+                                <div>
+                                    <label for="{{ form.cloud_providers_2.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                        {{ form.cloud_providers_2.label.text }}
+                                    </label>
+                                    {{ form.cloud_providers_2(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", placeholder="e.g., OneDrive, Box") }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Data Storage -->
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-secondary">Data Storage Solutions</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="{{ form.data_storage_1.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                        {{ form.data_storage_1.label.text }}
+                                        <span class="relative inline-block ml-2" data-tooltip="{{ form.data_storage_1.description }}">
+                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                    {{ form.data_storage_1(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", placeholder="e.g., Local servers, NAS") }}
+                                </div>
+                                <div>
+                                    <label for="{{ form.data_storage_2.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                        {{ form.data_storage_2.label.text }}
+                                    </label>
+                                    {{ form.data_storage_2(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", placeholder="e.g., External drives, Cloud storage") }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Email Providers -->
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-secondary">Email Providers</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="{{ form.email_providers_1.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                        {{ form.email_providers_1.label.text }}
+                                        <span class="relative inline-block ml-2" data-tooltip="{{ form.email_providers_1.description }}">
+                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                    {{ form.email_providers_1(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", placeholder="e.g., Gmail, Outlook") }}
+                                </div>
+                                <div>
+                                    <label for="{{ form.email_providers_2.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                        {{ form.email_providers_2.label.text }}
+                                    </label>
+                                    {{ form.email_providers_2(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", placeholder="e.g., Yahoo, Custom domain") }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- CRM Systems -->
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-secondary">CRM Systems</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="{{ form.crm_systems_1.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                        {{ form.crm_systems_1.label.text }}
+                                        <span class="relative inline-block ml-2" data-tooltip="{{ form.crm_systems_1.description }}">
+                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                    {{ form.crm_systems_1(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", placeholder="e.g., Salesforce, HubSpot") }}
+                                </div>
+                                <div>
+                                    <label for="{{ form.crm_systems_2.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                        {{ form.crm_systems_2.label.text }}
+                                    </label>
+                                    {{ form.crm_systems_2(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", placeholder="e.g., Pipedrive, Zoho") }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Media Contractors -->
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-secondary">Social Media Contractors</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="{{ form.social_media_contractors_1.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                        {{ form.social_media_contractors_1.label.text }}
+                                        <span class="relative inline-block ml-2" data-tooltip="{{ form.social_media_contractors_1.description }}">
+                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                    {{ form.social_media_contractors_1(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", placeholder="e.g., ABC Marketing, Social Media Co.") }}
+                                </div>
+                                <div>
+                                    <label for="{{ form.social_media_contractors_2.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                        {{ form.social_media_contractors_2.label.text }}
+                                    </label>
+                                    {{ form.social_media_contractors_2(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", placeholder="e.g., Digital Agency, Freelancer") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Navigation Buttons -->
                     <div class="flex justify-between pt-6 border-t border-gray-200">
                         <a href="{{ url_for('wizard_step', step=1) }}" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold transition-colors">
