@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}WISP Generator - IRS Compliant Security Plans{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#2261AE',
+                        'secondary': '#2A4159',
+                        'accent': '#00B2A9',
+                        'bg-main': '#F4F8FA',
+                        'primary-50': '#EEF4FF',
+                        'primary-100': '#DAE8FF',
+                        'primary-500': '#2261AE',
+                        'primary-600': '#1E57A0',
+                        'primary-700': '#1A4D92',
+                        'accent-50': '#E6F9F8',
+                        'accent-100': '#CCF3F1',
+                        'accent-500': '#00B2A9',
+                        'accent-600': '#009E96'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .shadow-card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .shadow-card-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-bg-main font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="{{ url_for('index') }}" class="flex items-center">
+                        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center mr-3">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold text-secondary">WISP Generator</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="{{ url_for('dashboard') }}" class="text-secondary hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        Dashboard
+                    </a>
+                    <a href="{{ url_for('start_wizard') }}" class="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                        Create WISP
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} p-4 mb-4 rounded-lg {% if category == 'error' %}bg-red-50 text-red-700 border border-red-200{% else %}bg-green-50 text-green-700 border border-green-200{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-secondary mb-4">WISP Generator</h3>
+                    <p class="text-gray-600">Generate IRS-compliant Written Information Security Plans with ease.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-secondary mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-primary">IRS Publication 4557</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary">GLBA Requirements</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-secondary mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-primary">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary">Help Documentation</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 mt-8 pt-8 text-center text-gray-600">
+                <p>&copy; 2024 WISP Generator. Ensuring compliance with IRS and GLBA requirements.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple tooltip functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tooltips = document.querySelectorAll('[data-tooltip]');
+            tooltips.forEach(tooltip => {
+                tooltip.addEventListener('mouseenter', function() {
+                    const tooltipText = this.getAttribute('data-tooltip');
+                    const tooltipElement = document.createElement('div');
+                    tooltipElement.className = 'absolute z-50 bg-gray-800 text-white text-xs rounded py-1 px-2 -mt-8 -ml-4';
+                    tooltipElement.textContent = tooltipText;
+                    tooltipElement.id = 'tooltip-' + Math.random().toString(36).substr(2, 9);
+                    this.appendChild(tooltipElement);
+                });
+                
+                tooltip.addEventListener('mouseleave', function() {
+                    const tooltipElement = this.querySelector('[id^="tooltip-"]');
+                    if (tooltipElement) {
+                        tooltipElement.remove();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

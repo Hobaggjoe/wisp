@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title %}Step 6: Employee Training - WISP Generator{% endblock %}
+
+{% block content %}
+<!-- Progress Bar -->
+<div class="mb-8">
+    <div class="flex items-center justify-between mb-4">
+        <h1 class="text-2xl font-bold text-secondary">WISP Creation Wizard</h1>
+        <span class="text-sm text-gray-600">Step {{ step }} of 6</span>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-2">
+        <div class="bg-primary rounded-full h-2 transition-all duration-300" style="width: {{ (step / 6 * 100) }}%"></div>
+    </div>
+    <div class="flex justify-between mt-2 text-xs text-gray-600">
+        <span class="{% if step >= 1 %}text-primary font-semibold{% endif %}">Company Info</span>
+        <span class="{% if step >= 2 %}text-primary font-semibold{% endif %}">Data Collection</span>
+        <span class="{% if step >= 3 %}text-primary font-semibold{% endif %}">Systems</span>
+        <span class="{% if step >= 4 %}text-primary font-semibold{% endif %}">Security Controls</span>
+        <span class="{% if step >= 5 %}text-primary font-semibold{% endif %}">Vendors & Access</span>
+        <span class="{% if step >= 6 %}text-primary font-semibold{% endif %}">Employee Training</span>
+    </div>
+</div>
+
+<div class="max-w-4xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Form -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-2xl shadow-card p-8">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">Employee Access & Training</h2>
+                    <p class="text-gray-600">
+                        Employee training and access controls are the foundation of your data security program.
+                    </p>
+                </div>
+
+                <form method="POST" class="space-y-6">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Access Controls</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start p-3 bg-white rounded-lg border">
+                                {{ form.access_control(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
+                                <div class="ml-3">
+                                    <label for="{{ form.access_control.id }}" class="text-sm font-medium text-secondary">
+                                        Do you have role-based access controls?
+                                        <span class="relative inline-block ml-2" data-tooltip="Employees should only access data necessary for their job functions">
+                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                    <p class="text-xs text-gray-600 mt-1">
+                                        Different employees have different levels of access based on their job responsibilities
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start p-3 bg-white rounded-lg border">
+                                {{ form.background_checks(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
+                                <div class="ml-3">
+                                    <label for="{{ form.background_checks.id }}" class="text-sm font-medium text-secondary">
+                                        Do you conduct background checks for employees with data access?
+                                        <span class="relative inline-block ml-2" data-tooltip="Background checks help verify employee trustworthiness">
+                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                    <p class="text-xs text-gray-600 mt-1">
+                                        Especially important for employees handling sensitive financial or personal data
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Security Training</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start p-3 bg-white rounded-lg border">
+                                {{ form.employee_training(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
+                                <div class="ml-3">
+                                    <label for="{{ form.employee_training.id }}" class="text-sm font-medium text-secondary">
+                                        Do you provide regular security awareness training?
+                                        <span class="relative inline-block ml-2" data-tooltip="Regular training keeps employees aware of current threats and best practices">
+                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                    <p class="text-xs text-gray-600 mt-1">
+                                        Training should cover phishing, password security, data handling, and incident reporting
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <label for="{{ form.training_frequency.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                                    How often do you conduct security training?
+                                    <span class="relative inline-block ml-2" data-tooltip="More frequent training improves security awareness">
+                                        <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </span>
+                                </label>
+                                {{ form.training_frequency(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors") }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Incident Response</h3>
+                        
+                        <div class="flex items-start p-3 bg-white rounded-lg border">
+                            {{ form.incident_response(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
+                            <div class="ml-3">
+                                <label for="{{ form.incident_response.id }}" class="text-sm font-medium text-secondary">
+                                    Do you have a written incident response plan?
+                                    <span class="relative inline-block ml-2" data-tooltip="A documented plan ensures quick and effective response to security incidents">
+                                        <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </span>
+                                </label>
+                                <p class="text-xs text-gray-600 mt-1">
+                                    The plan should define roles, notification procedures, and steps to contain and recover from incidents
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between pt-6 border-t border-gray-200">
+                        <a href="{{ url_for('wizard_step', step=5) }}" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold transition-colors">
+                            <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                            Previous
+                        </a>
+                        <button type="submit" class="bg-accent hover:bg-accent-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors shadow-md">
+                            Complete WISP
+                            <svg class="w-4 h-4 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+            <div class="bg-green-50 rounded-2xl p-6 mb-6 border border-green-200">
+                <h3 class="text-lg font-semibold text-green-800 mb-4">Almost Done!</h3>
+                <p class="text-sm text-green-700 mb-3">
+                    You're on the final step. After completing this section, your WISP will be generated automatically.
+                </p>
+                <div class="text-sm text-green-700">
+                    <p class="font-semibold mb-2">What happens next:</p>
+                    <ul class="space-y-1">
+                        <li>• WISP document generated</li>
+                        <li>• PDF ready for download</li>
+                        <li>• Saved to your dashboard</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-primary/5 rounded-2xl p-6 mb-6">
+                <h3 class="text-lg font-semibold text-secondary mb-4">Training Topics</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li>• Password security best practices</li>
+                    <li>• Phishing recognition</li>
+                    <li>• Social engineering awareness</li>
+                    <li>• Data handling procedures</li>
+                    <li>• Clean desk policy</li>
+                    <li>• Mobile device security</li>
+                    <li>• Incident reporting procedures</li>
+                </ul>
+            </div>
+
+            <div class="bg-accent/5 rounded-2xl p-6">
+                <h3 class="text-lg font-semibold text-secondary mb-4">Human Factor</h3>
+                <p class="text-sm text-gray-700 mb-3">
+                    95% of successful cyber attacks are due to human error. Employee training is your strongest defense.
+                </p>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li>• Regular training reduces risk by 70%</li>
+                    <li>• Simulated phishing helps awareness</li>
+                    <li>• Clear policies prevent mistakes</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

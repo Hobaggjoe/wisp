@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Step 3: Systems Used - WISP Generator{% endblock %}
+
+{% block content %}
+<!-- Progress Bar -->
+<div class="mb-8">
+    <div class="flex items-center justify-between mb-4">
+        <h1 class="text-2xl font-bold text-secondary">WISP Creation Wizard</h1>
+        <span class="text-sm text-gray-600">Step {{ step }} of 6</span>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-2">
+        <div class="bg-primary rounded-full h-2 transition-all duration-300" style="width: {{ (step / 6 * 100) }}%"></div>
+    </div>
+    <div class="flex justify-between mt-2 text-xs text-gray-600">
+        <span class="{% if step >= 1 %}text-primary font-semibold{% endif %}">Company Info</span>
+        <span class="{% if step >= 2 %}text-primary font-semibold{% endif %}">Data Collection</span>
+        <span class="{% if step >= 3 %}text-primary font-semibold{% endif %}">Systems</span>
+        <span class="{% if step >= 4 %}text-primary font-semibold{% endif %}">Security Controls</span>
+        <span class="{% if step >= 5 %}text-primary font-semibold{% endif %}">Vendors & Access</span>
+        <span class="{% if step >= 6 %}text-primary font-semibold{% endif %}">Employee Training</span>
+    </div>
+</div>
+
+<div class="max-w-4xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Form -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-2xl shadow-card p-8">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">Systems & Software</h2>
+                    <p class="text-gray-600">
+                        Tell us about the systems and software your business uses to handle sensitive customer data.
+                    </p>
+                </div>
+
+                <form method="POST" class="space-y-6">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Common Business Systems</h3>
+                        <p class="text-sm text-gray-600 mb-4">Select all systems that your business uses:</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.quickbooks(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.quickbooks.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    QuickBooks
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.adp(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.adp.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    ADP Payroll
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.workday(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.workday.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Workday
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.salesforce(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.salesforce.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Salesforce
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.office365(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.office365.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Microsoft 365
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center p-3 bg-white rounded-lg border">
+                                {{ form.google_workspace(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                                <label for="{{ form.google_workspace.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                    Google Workspace
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="{{ form.custom_software.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                            Other Systems/Software
+                            <span class="relative inline-block ml-2" data-tooltip="Include any custom software, databases, or cloud services that handle sensitive data">
+                                <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </span>
+                        </label>
+                        {{ form.custom_software(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", rows="4", placeholder="List any other systems, software, or cloud services your business uses to handle sensitive data. Include version numbers if known.") }}
+                        <p class="mt-1 text-sm text-gray-500">{{ form.custom_software.description }}</p>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between pt-6 border-t border-gray-200">
+                        <a href="{{ url_for('wizard_step', step=2) }}" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold transition-colors">
+                            <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                            Previous
+                        </a>
+                        <button type="submit" class="bg-primary hover:bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors shadow-md">
+                            Next: Security Controls
+                            <svg class="w-4 h-4 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+            <div class="bg-primary/5 rounded-2xl p-6 mb-6">
+                <h3 class="text-lg font-semibold text-secondary mb-4">Why This Matters</h3>
+                <ul class="space-y-3 text-sm text-gray-700">
+                    <li class="flex items-start">
+                        <svg class="w-4 h-4 text-primary mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Different systems require different security measures
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-4 h-4 text-primary mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Cloud services have specific compliance requirements
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-4 h-4 text-primary mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        System inventory helps identify security gaps
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-accent/5 rounded-2xl p-6">
+                <h3 class="text-lg font-semibold text-secondary mb-4">Examples to Include</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li>• Practice management software</li>
+                    <li>• Document management systems</li>
+                    <li>• Email platforms</li>
+                    <li>• File sharing services</li>
+                    <li>• Backup solutions</li>
+                    <li>• Custom databases</li>
+                    <li>• Mobile applications</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

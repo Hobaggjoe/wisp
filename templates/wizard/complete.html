@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block title %}WISP Complete - WISP Generator{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto text-center">
+    <!-- Success Animation/Icon -->
+    <div class="mb-8">
+        <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+        </div>
+        <h1 class="text-4xl font-bold text-secondary mb-4">WISP Successfully Created!</h1>
+        <p class="text-xl text-gray-600 mb-8">
+            Your Written Information Security Plan for <strong>{{ wisp_data.get('company_name', 'your company') }}</strong> 
+            is now ready and fully compliant with IRS and GLBA requirements.
+        </p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+        <a href="{{ url_for('view_wisp', wisp_id=wisp.id) }}" 
+           class="bg-primary hover:bg-primary-600 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-colors shadow-lg">
+            <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+            View WISP Document
+        </a>
+        <a href="{{ url_for('download_wisp_pdf', wisp_id=wisp.id) }}" 
+           class="bg-accent hover:bg-accent-600 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-colors shadow-lg">
+            <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0-6V4m0 6h6m-6 0H6"></path>
+            </svg>
+            Download PDF
+        </a>
+        <a href="{{ url_for('dashboard') }}" 
+           class="bg-white hover:bg-gray-50 text-secondary border border-gray-300 px-8 py-4 rounded-xl text-lg font-semibold transition-colors">
+            <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v4H8V5z"></path>
+            </svg>
+            Go to Dashboard
+        </a>
+    </div>
+
+    <!-- WISP Summary -->
+    <div class="bg-white rounded-3xl shadow-card-lg p-8 mb-12 text-left">
+        <h2 class="text-2xl font-bold text-secondary mb-6 text-center">Your WISP Summary</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <h3 class="text-lg font-semibold text-secondary mb-4">Company Information</h3>
+                <div class="space-y-2 text-sm">
+                    <p><span class="font-medium">Company:</span> {{ wisp_data.get('company_name', 'N/A') }}</p>
+                    <p><span class="font-medium">Industry:</span> {{ wisp_data.get('industry', 'N/A') | title }}</p>
+                    <p><span class="font-medium">Size:</span> {{ wisp_data.get('company_size', 'N/A') }}</p>
+                    <p><span class="font-medium">Contact:</span> {{ wisp_data.get('contact_email', 'N/A') }}</p>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-semibold text-secondary mb-4">Security Profile</h3>
+                <div class="space-y-2 text-sm">
+                    <p><span class="font-medium">Data Type:</span> {{ wisp_data.get('personal_info_types', 'N/A') | title }}</p>
+                    <p><span class="font-medium">Retention:</span> {{ wisp_data.get('data_retention', 'N/A') | title }}</p>
+                    <p><span class="font-medium">MFA Enabled:</span> 
+                        <span class="{% if wisp_data.get('mfa_enabled') %}text-green-600{% else %}text-red-600{% endif %}">
+                            {{ 'Yes' if wisp_data.get('mfa_enabled') else 'No' }}
+                        </span>
+                    </p>
+                    <p><span class="font-medium">Data Encryption:</span> 
+                        <span class="{% if wisp_data.get('data_encryption') %}text-green-600{% else %}text-red-600{% endif %}">
+                            {{ 'Yes' if wisp_data.get('data_encryption') else 'No' }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Security Score -->
+        {% set security_controls = [
+            wisp_data.get('mfa_enabled', False),
+            wisp_data.get('data_encryption', False),
+            wisp_data.get('transmission_encryption', False),
+            wisp_data.get('firewall_protection', False),
+            wisp_data.get('regular_backups', False),
+            wisp_data.get('employee_training', False),
+            wisp_data.get('incident_response', False),
+            wisp_data.get('vendor_agreements', False)
+        ] %}
+        {% set score = (security_controls | select('true') | list | length / security_controls | length * 100) | round %}
+        
+        <div class="mt-8 p-6 bg-gray-50 rounded-2xl">
+            <h3 class="text-lg font-semibold text-secondary mb-4 text-center">Security Implementation Score</h3>
+            <div class="flex items-center justify-center mb-4">
+                <div class="text-4xl font-bold {% if score >= 75 %}text-green-600{% elif score >= 50 %}text-yellow-600{% else %}text-red-600{% endif %}">
+                    {{ score }}%
+                </div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="{% if score >= 75 %}bg-green-500{% elif score >= 50 %}bg-yellow-500{% else %}bg-red-500{% endif %} rounded-full h-3 transition-all duration-500" style="width: {{ score }}%"></div>
+            </div>
+            <p class="text-sm text-gray-600 mt-4 text-center">
+                {% if score >= 75 %}
+                    Excellent! Your security controls are well implemented.
+                {% elif score >= 50 %}
+                    Good foundation. Consider implementing additional controls.
+                {% else %}
+                    Important: Consider strengthening your security measures.
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <!-- Next Steps -->
+    <div class="bg-gradient-to-br from-primary/5 to-accent/5 rounded-3xl p-8 mb-12">
+        <h2 class="text-2xl font-bold text-secondary mb-6">Next Steps</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            <div class="bg-white rounded-2xl p-6 shadow-card">
+                <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-secondary mb-2">Review & Implement</h3>
+                <p class="text-sm text-gray-600">Review your WISP document and implement any missing security controls identified.</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-6 shadow-card">
+                <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-secondary mb-2">Train Your Team</h3>
+                <p class="text-sm text-gray-600">Share the WISP with employees and conduct security awareness training as outlined.</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-6 shadow-card">
+                <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0h6v10a2 2 0 01-2 2H10a2 2 0 01-2-2V7z"></path>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-secondary mb-2">Annual Review</h3>
+                <p class="text-sm text-gray-600">Schedule an annual review to update your WISP and ensure continued compliance.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Important Notice -->
+    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-8">
+        <div class="flex items-start">
+            <svg class="w-6 h-6 text-amber-600 mt-1 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+            </svg>
+            <div>
+                <h3 class="text-lg font-semibold text-amber-800 mb-2">Important Compliance Notice</h3>
+                <p class="text-amber-700 text-sm">
+                    This WISP template is designed to meet IRS Publication 4557 and GLBA requirements. However, 
+                    specific compliance needs may vary based on your business type and location. We recommend 
+                    reviewing this document with legal counsel or a compliance professional to ensure it meets 
+                    all applicable requirements for your situation.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Another -->
+    <div class="text-center">
+        <p class="text-gray-600 mb-4">Need to create a WISP for another business?</p>
+        <a href="{{ url_for('start_wizard') }}" class="text-primary hover:text-primary-600 font-semibold">
+            Create Another WISP →
+        </a>
+    </div>
+</div>
+{% endblock %}

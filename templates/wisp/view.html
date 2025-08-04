@@ -1,0 +1,379 @@
+{% extends "base.html" %}
+
+{% block title %}{{ wisp_data.get('company_name', 'WISP Document') }} - WISP Generator{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <!-- Header Actions -->
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-secondary">Written Information Security Plan</h1>
+            <p class="text-gray-600 mt-2">{{ wisp_data.get('company_name', 'Company Name') }}</p>
+        </div>
+        <div class="flex gap-3">
+            <a href="{{ url_for('dashboard') }}" 
+               class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors">
+                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Back to Dashboard
+            </a>
+            <a href="{{ url_for('download_wisp_pdf', wisp_id=wisp.id) }}" 
+               class="bg-accent hover:bg-accent-600 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0-6V4m0 6h6m-6 0H6"></path>
+                </svg>
+                Download PDF
+            </a>
+        </div>
+    </div>
+
+    <!-- WISP Document -->
+    <div class="bg-white rounded-2xl shadow-card overflow-hidden">
+        <!-- Document Header -->
+        <div class="bg-gradient-to-r from-primary to-primary-600 text-white p-8">
+            <div class="text-center">
+                <h1 class="text-3xl font-bold mb-2">Written Information Security Plan</h1>
+                <h2 class="text-xl">{{ wisp_data.get('company_name', 'Company Name') }}</h2>
+                <p class="mt-4 text-primary-100">
+                    Created: {{ wisp.created_at.strftime('%B %d, %Y') }} | 
+                    Last Updated: {{ wisp.updated_at.strftime('%B %d, %Y') }}
+                </p>
+            </div>
+        </div>
+
+        <div class="p-8">
+            <!-- Executive Summary -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-secondary mb-6 border-b-2 border-primary pb-2">Executive Summary</h2>
+                <div class="prose max-w-none text-gray-700">
+                    <p class="mb-4">
+                        This Written Information Security Plan (WISP) has been developed by {{ wisp_data.get('company_name', 'the Company') }} 
+                        to comply with the requirements set forth in IRS Publication 4557 and the Gramm-Leach-Bliley Act (GLBA). 
+                        This plan outlines our commitment to protecting customer information and the specific measures we have 
+                        implemented to safeguard sensitive data.
+                    </p>
+                    <p class="mb-4">
+                        As a {{ wisp_data.get('industry', 'business') | lower }} organization with {{ wisp_data.get('company_size', 'multiple') }} employees, 
+                        we handle {{ wisp_data.get('personal_info_types', 'personal information') | lower }} and are committed to maintaining 
+                        the highest standards of data protection and privacy.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Company Information -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-secondary mb-6 border-b-2 border-primary pb-2">Company Information</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Business Details</h3>
+                        <div class="space-y-3">
+                            <div class="flex">
+                                <span class="font-medium text-gray-700 w-24">Company:</span>
+                                <span class="text-gray-600">{{ wisp_data.get('company_name', 'N/A') }}</span>
+                            </div>
+                            <div class="flex">
+                                <span class="font-medium text-gray-700 w-24">Industry:</span>
+                                <span class="text-gray-600">{{ wisp_data.get('industry', 'N/A') | title }}</span>
+                            </div>
+                            <div class="flex">
+                                <span class="font-medium text-gray-700 w-24">Size:</span>
+                                <span class="text-gray-600">{{ wisp_data.get('company_size', 'N/A') }}</span>
+                            </div>
+                            <div class="flex">
+                                <span class="font-medium text-gray-700 w-24">Contact:</span>
+                                <span class="text-gray-600">{{ wisp_data.get('contact_email', 'N/A') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Business Address</h3>
+                        <div class="text-gray-600 whitespace-pre-line">{{ wisp_data.get('address', 'Address not provided') }}</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Administrative Safeguards -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-secondary mb-6 border-b-2 border-primary pb-2">Administrative Safeguards</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Access Control and User Management</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Role-Based Access Controls:</p>
+                                <p class="text-gray-600">{{ 'Implemented' if wisp_data.get('access_control') else 'Not Implemented' }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Background Checks:</p>
+                                <p class="text-gray-600">{{ 'Conducted for data access roles' if wisp_data.get('background_checks') else 'Not conducted' }}</p>
+                            </div>
+                        </div>
+                        {% if wisp_data.get('access_control') %}
+                        <p class="mt-4 text-sm text-gray-600">
+                            Employees are granted access to sensitive information only on a need-to-know basis according to their job responsibilities. 
+                            Access rights are reviewed regularly and updated when roles change.
+                        </p>
+                        {% endif %}
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Employee Training Program</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Security Awareness Training:</p>
+                                <p class="text-gray-600">{{ 'Provided regularly' if wisp_data.get('employee_training') else 'Not provided' }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Training Frequency:</p>
+                                <p class="text-gray-600">{{ wisp_data.get('training_frequency', 'Not specified') | title }}</p>
+                            </div>
+                        </div>
+                        {% if wisp_data.get('employee_training') %}
+                        <p class="mt-4 text-sm text-gray-600">
+                            All employees receive regular training on information security best practices, including password security, 
+                            phishing awareness, and proper data handling procedures.
+                        </p>
+                        {% endif %}
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Incident Response</h3>
+                        <div>
+                            <p class="font-medium text-gray-700 mb-2">Written Incident Response Plan:</p>
+                            <p class="text-gray-600">{{ 'Documented and maintained' if wisp_data.get('incident_response') else 'Not documented' }}</p>
+                        </div>
+                        {% if wisp_data.get('incident_response') %}
+                        <p class="mt-4 text-sm text-gray-600">
+                            Our incident response plan defines procedures for identifying, containing, and recovering from security incidents, 
+                            including notification requirements and recovery steps.
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Safeguards -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-secondary mb-6 border-b-2 border-primary pb-2">Technical Safeguards</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Authentication and Access Security</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Multi-Factor Authentication:</p>
+                                <p class="text-gray-600">{{ 'Enabled' if wisp_data.get('mfa_enabled') else 'Not Enabled' }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Password Policy:</p>
+                                <p class="text-gray-600">{{ 'Written policy in place' if wisp_data.get('password_policy') else 'No written policy' }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Data Encryption</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Encryption at Rest:</p>
+                                <p class="text-gray-600">{{ 'Implemented' if wisp_data.get('data_encryption') else 'Not Implemented' }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Encryption in Transit:</p>
+                                <p class="text-gray-600">{{ 'Implemented' if wisp_data.get('transmission_encryption') else 'Not Implemented' }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Network and System Protection</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Firewall Protection:</p>
+                                <p class="text-gray-600">{{ 'Active' if wisp_data.get('firewall_protection') else 'Not Active' }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Antivirus Software:</p>
+                                <p class="text-gray-600">{{ 'Installed and updated' if wisp_data.get('antivirus_software') else 'Not installed' }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Security Updates:</p>
+                                <p class="text-gray-600">{{ 'Regular updates applied' if wisp_data.get('security_updates') else 'Not regularly applied' }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Data Backup and Recovery</h3>
+                        <div>
+                            <p class="font-medium text-gray-700 mb-2">Regular Data Backups:</p>
+                            <p class="text-gray-600">{{ 'Implemented' if wisp_data.get('regular_backups') else 'Not Implemented' }}</p>
+                        </div>
+                        {% if wisp_data.get('regular_backups') %}
+                        <p class="mt-4 text-sm text-gray-600">
+                            Regular backups ensure business continuity and data availability in the event of system failures or security incidents.
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
+            <!-- Physical Safeguards -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-secondary mb-6 border-b-2 border-primary pb-2">Physical Safeguards</h2>
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <p class="text-gray-700 mb-4">
+                        Physical access to areas containing sensitive information is restricted to authorized personnel only. 
+                        This includes computer workstations, file cabinets, and any physical storage containing customer data.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-2">
+                        <li>Office doors are locked when unattended</li>
+                        <li>Computer screens are locked when away from desk</li>
+                        <li>Sensitive documents are stored in locked cabinets</li>
+                        <li>Clean desk policy is enforced</li>
+                        <li>Visitor access is monitored and logged</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Information Collected and Stored -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-secondary mb-6 border-b-2 border-primary pb-2">Information Collected and Stored</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Data Types</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Personal Information Types:</p>
+                                <p class="text-gray-600">{{ wisp_data.get('personal_info_types', 'Not specified') | title }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Data Retention Period:</p>
+                                <p class="text-gray-600">{{ wisp_data.get('data_retention', 'Not specified') | title }}</p>
+                            </div>
+                        </div>
+                        {% if wisp_data.get('data_sources') %}
+                        <div class="mt-4">
+                            <p class="font-medium text-gray-700 mb-2">Data Collection Sources:</p>
+                            <p class="text-gray-600 whitespace-pre-line">{{ wisp_data.get('data_sources') }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Data Destruction</h3>
+                        <p class="font-medium text-gray-700 mb-2">Data Destruction Process:</p>
+                        <p class="text-gray-600">{{ 'Documented process in place' if wisp_data.get('data_destruction') else 'No formal process documented' }}</p>
+                        {% if wisp_data.get('data_destruction') %}
+                        <p class="mt-4 text-sm text-gray-600">
+                            When personal information is no longer needed for business purposes or legal requirements, 
+                            it is securely destroyed using methods appropriate to the storage medium.
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
+            <!-- Systems and Software -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-secondary mb-6 border-b-2 border-primary pb-2">Systems and Software</h2>
+                
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-secondary mb-4">Business Systems in Use</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                        {% for system, enabled in [
+                            ('QuickBooks', wisp_data.get('quickbooks')),
+                            ('ADP Payroll', wisp_data.get('adp')),
+                            ('Workday', wisp_data.get('workday')),
+                            ('Salesforce', wisp_data.get('salesforce')),
+                            ('Microsoft 365', wisp_data.get('office365')),
+                            ('Google Workspace', wisp_data.get('google_workspace'))
+                        ] %}
+                        {% if enabled %}
+                        <div class="flex items-center text-sm">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            {{ system }}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    
+                    {% if wisp_data.get('custom_software') %}
+                    <div class="mt-6">
+                        <h4 class="font-medium text-gray-700 mb-2">Additional Systems:</h4>
+                        <p class="text-gray-600 whitespace-pre-line">{{ wisp_data.get('custom_software') }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </section>
+
+            <!-- Third-Party Vendors -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-secondary mb-6 border-b-2 border-primary pb-2">Third-Party Vendors and Service Providers</h2>
+                
+                <div class="space-y-6">
+                    {% if wisp_data.get('vendor_list') %}
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Vendors with Data Access</h3>
+                        <p class="text-gray-600 whitespace-pre-line">{{ wisp_data.get('vendor_list') }}</p>
+                    </div>
+                    {% endif %}
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Vendor Management</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Written Vendor Agreements:</p>
+                                <p class="text-gray-600">{{ 'In place for all vendors' if wisp_data.get('vendor_agreements') else 'Not in place' }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-700 mb-2">Vendor Compliance Monitoring:</p>
+                                <p class="text-gray-600">{{ 'Regular monitoring conducted' if wisp_data.get('vendor_monitoring') else 'Not regularly monitored' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Risk Assessment and Review -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-secondary mb-6 border-b-2 border-primary pb-2">Risk Assessment and Annual Review</h2>
+                
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-secondary mb-4">Ongoing Risk Management</h3>
+                    <p class="text-gray-700 mb-4">
+                        This WISP is reviewed annually to ensure continued effectiveness and compliance with applicable regulations. 
+                        The review process includes:
+                    </p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-2">
+                        <li>Assessment of current security controls and their effectiveness</li>
+                        <li>Identification of new threats and vulnerabilities</li>
+                        <li>Review of any security incidents that occurred during the year</li>
+                        <li>Evaluation of changes in business operations or technology</li>
+                        <li>Updates to policies and procedures as needed</li>
+                        <li>Employee training program effectiveness review</li>
+                    </ul>
+                    
+                    <div class="mt-6 p-4 bg-white rounded-lg border">
+                        <p class="font-medium text-gray-700 mb-2">Next Review Date:</p>
+                        <p class="text-gray-600">{{ (wisp.created_at.replace(year=wisp.created_at.year + 1)).strftime('%B %d, %Y') }}</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Document Footer -->
+            <div class="border-t-2 border-gray-200 pt-8 mt-12">
+                <div class="text-center text-gray-600">
+                    <p class="mb-2">This Written Information Security Plan was created on {{ wisp.created_at.strftime('%B %d, %Y') }}</p>
+                    <p class="text-sm">Generated using WISP Generator - Ensuring IRS Publication 4557 and GLBA Compliance</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

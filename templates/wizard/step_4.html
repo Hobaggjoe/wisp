@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}Step 4: Security Controls - WISP Generator{% endblock %}
+
+{% block content %}
+<!-- Progress Bar -->
+<div class="mb-8">
+    <div class="flex items-center justify-between mb-4">
+        <h1 class="text-2xl font-bold text-secondary">WISP Creation Wizard</h1>
+        <span class="text-sm text-gray-600">Step {{ step }} of 6</span>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-2">
+        <div class="bg-primary rounded-full h-2 transition-all duration-300" style="width: {{ (step / 6 * 100) }}%"></div>
+    </div>
+    <div class="flex justify-between mt-2 text-xs text-gray-600">
+        <span class="{% if step >= 1 %}text-primary font-semibold{% endif %}">Company Info</span>
+        <span class="{% if step >= 2 %}text-primary font-semibold{% endif %}">Data Collection</span>
+        <span class="{% if step >= 3 %}text-primary font-semibold{% endif %}">Systems</span>
+        <span class="{% if step >= 4 %}text-primary font-semibold{% endif %}">Security Controls</span>
+        <span class="{% if step >= 5 %}text-primary font-semibold{% endif %}">Vendors & Access</span>
+        <span class="{% if step >= 6 %}text-primary font-semibold{% endif %}">Employee Training</span>
+    </div>
+</div>
+
+<div class="max-w-4xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Form -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-2xl shadow-card p-8">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">Security Controls & Technical Safeguards</h2>
+                    <p class="text-gray-600">
+                        These technical measures help protect your customers' sensitive information from unauthorized access.
+                    </p>
+                </div>
+
+                <form method="POST" class="space-y-6">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Authentication & Access</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start p-3 bg-white rounded-lg border">
+                                {{ form.mfa_enabled(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
+                                <div class="ml-3">
+                                    <label for="{{ form.mfa_enabled.id }}" class="text-sm font-medium text-secondary">
+                                        Multi-Factor Authentication (MFA) enabled
+                                        <span class="relative inline-block ml-2" data-tooltip="MFA significantly reduces the risk of unauthorized access">
+                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                    <p class="text-xs text-gray-600 mt-1">Two-factor authentication for all systems handling sensitive data</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start p-3 bg-white rounded-lg border">
+                                {{ form.password_policy(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
+                                <div class="ml-3">
+                                    <label for="{{ form.password_policy.id }}" class="text-sm font-medium text-secondary">
+                                        Written password policy
+                                    </label>
+                                    <p class="text-xs text-gray-600 mt-1">Documented requirements for password strength and management</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Data Encryption</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start p-3 bg-white rounded-lg border">
+                                {{ form.data_encryption(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
+                                <div class="ml-3">
+                                    <label for="{{ form.data_encryption.id }}" class="text-sm font-medium text-secondary">
+                                        Data encryption at rest
+                                        <span class="relative inline-block ml-2" data-tooltip="Encrypts data stored on hard drives and databases">
+                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                    <p class="text-xs text-gray-600 mt-1">Stored files and databases are encrypted</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start p-3 bg-white rounded-lg border">
+                                {{ form.transmission_encryption(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
+                                <div class="ml-3">
+                                    <label for="{{ form.transmission_encryption.id }}" class="text-sm font-medium text-secondary">
+                                        Data encryption in transmission
+                                        <span class="relative inline-block ml-2" data-tooltip="Protects data when sent over networks (HTTPS, VPN, etc.)">
+                                            <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                    <p class="text-xs text-gray-600 mt-1">Data sent over networks is encrypted (HTTPS, secure email, VPN)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Network & System Protection</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start p-3 bg-white rounded-lg border">
+                                {{ form.firewall_protection(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
+                                <div class="ml-3">
+                                    <label for="{{ form.firewall_protection.id }}" class="text-sm font-medium text-secondary">
+                                        Firewall protection
+                                    </label>
+                                    <p class="text-xs text-gray-600 mt-1">Network firewall to block unauthorized access</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start p-3 bg-white rounded-lg border">
+                                {{ form.antivirus_software(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
+                                <div class="ml-3">
+                                    <label for="{{ form.antivirus_software.id }}" class="text-sm font-medium text-secondary">
+                                        Antivirus software
+                                    </label>
+                                    <p class="text-xs text-gray-600 mt-1">Up-to-date antivirus protection on all devices</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start p-3 bg-white rounded-lg border">
+                                {{ form.security_updates(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
+                                <div class="ml-3">
+                                    <label for="{{ form.security_updates.id }}" class="text-sm font-medium text-secondary">
+                                        Regular security updates and patches
+                                    </label>
+                                    <p class="text-xs text-gray-600 mt-1">Operating systems and software are kept up-to-date</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Data Backup & Recovery</h3>
+                        
+                        <div class="flex items-start p-3 bg-white rounded-lg border">
+                            {{ form.regular_backups(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded mt-1") }}
+                            <div class="ml-3">
+                                <label for="{{ form.regular_backups.id }}" class="text-sm font-medium text-secondary">
+                                    Regular data backups
+                                    <span class="relative inline-block ml-2" data-tooltip="Essential for data recovery and business continuity">
+                                        <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </span>
+                                </label>
+                                <p class="text-xs text-gray-600 mt-1">Automated or scheduled backups of critical data</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between pt-6 border-t border-gray-200">
+                        <a href="{{ url_for('wizard_step', step=3) }}" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold transition-colors">
+                            <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                            Previous
+                        </a>
+                        <button type="submit" class="bg-primary hover:bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors shadow-md">
+                            Next: Vendors & Access
+                            <svg class="w-4 h-4 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+            <div class="bg-red-50 rounded-2xl p-6 mb-6 border border-red-200">
+                <h3 class="text-lg font-semibold text-red-800 mb-4">Security Priority</h3>
+                <p class="text-sm text-red-700 mb-3">
+                    The IRS considers these technical safeguards essential for protecting tax return information.
+                </p>
+                <ul class="space-y-2 text-sm text-red-700">
+                    <li>• Encryption is strongly recommended</li>
+                    <li>• MFA prevents 99.9% of account compromises</li>
+                    <li>• Regular backups ensure data availability</li>
+                </ul>
+            </div>
+
+            <div class="bg-primary/5 rounded-2xl p-6">
+                <h3 class="text-lg font-semibold text-secondary mb-4">Implementation Tips</h3>
+                <ul class="space-y-3 text-sm text-gray-700">
+                    <li class="flex items-start">
+                        <svg class="w-4 h-4 text-primary mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"></path>
+                        </svg>
+                        Start with free MFA options (Google Authenticator, Microsoft Authenticator)
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-4 h-4 text-primary mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"></path>
+                        </svg>
+                        Most cloud services include encryption by default
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-4 h-4 text-primary mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"></path>
+                        </svg>
+                        Enable automatic updates where possible
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

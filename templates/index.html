@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="bg-gradient-to-br from-primary to-primary-700 rounded-3xl text-white p-12 mb-12">
+    <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6">
+            Generate Your IRS-Compliant WISP
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 text-primary-50">
+            Create a comprehensive Written Information Security Plan that meets IRS Publication 4557 and GLBA requirements in minutes, not hours.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{{ url_for('start_wizard') }}" class="bg-accent hover:bg-accent-600 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-colors shadow-lg">
+                Start Creating Your WISP
+            </a>
+            <a href="{{ url_for('dashboard') }}" class="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-colors border border-white/20">
+                View Existing WISPs
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+    <div class="bg-white rounded-2xl p-8 shadow-card">
+        <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+            </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-secondary mb-4">6-Step Guided Wizard</h3>
+        <p class="text-gray-600">
+            Our intuitive wizard walks you through every requirement, from company information to security controls, ensuring nothing is missed.
+        </p>
+    </div>
+
+    <div class="bg-white rounded-2xl p-8 shadow-card">
+        <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-secondary mb-4">IRS & GLBA Compliant</h3>
+        <p class="text-gray-600">
+            Generated WISPs automatically comply with IRS Publication 4557 and Gramm-Leach-Bliley Act requirements.
+        </p>
+    </div>
+
+    <div class="bg-white rounded-2xl p-8 shadow-card">
+        <div class="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0-6V4m0 6h6m-6 0H6"></path>
+            </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-secondary mb-4">Professional PDF Output</h3>
+        <p class="text-gray-600">
+            Export your completed WISP as a professional PDF document ready for submission or audit review.
+        </p>
+    </div>
+</div>
+
+<!-- Process Steps -->
+<div class="bg-white rounded-3xl p-12 shadow-card-lg mb-16">
+    <h2 class="text-3xl font-bold text-secondary text-center mb-12">How It Works</h2>
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-8">
+        <div class="text-center">
+            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">1</div>
+            <h4 class="font-semibold text-secondary mb-2">Company Info</h4>
+            <p class="text-gray-600 text-sm">Basic business details and contact information</p>
+        </div>
+        <div class="text-center">
+            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">2</div>
+            <h4 class="font-semibold text-secondary mb-2">Data Collection</h4>
+            <p class="text-gray-600 text-sm">What data you collect and how you handle it</p>
+        </div>
+        <div class="text-center">
+            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">3</div>
+            <h4 class="font-semibold text-secondary mb-2">Systems Used</h4>
+            <p class="text-gray-600 text-sm">Software and systems that handle sensitive data</p>
+        </div>
+        <div class="text-center">
+            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">4</div>
+            <h4 class="font-semibold text-secondary mb-2">Security Controls</h4>
+            <p class="text-gray-600 text-sm">Technical safeguards and security measures</p>
+        </div>
+        <div class="text-center">
+            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">5</div>
+            <h4 class="font-semibold text-secondary mb-2">Vendors & Access</h4>
+            <p class="text-gray-600 text-sm">Third-party relationships and data access</p>
+        </div>
+        <div class="text-center">
+            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">6</div>
+            <h4 class="font-semibold text-secondary mb-2">Employee Training</h4>
+            <p class="text-gray-600 text-sm">Access controls and security awareness</p>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="bg-gradient-to-r from-accent to-accent-600 rounded-3xl text-white p-12 text-center">
+    <h2 class="text-3xl font-bold mb-6">Ready to Get Started?</h2>
+    <p class="text-xl mb-8 text-accent-50">
+        Join thousands of businesses who have created compliant WISPs in minutes.
+    </p>
+    <a href="{{ url_for('start_wizard') }}" class="bg-white text-accent hover:bg-gray-50 px-8 py-4 rounded-xl text-lg font-semibold transition-colors shadow-lg">
+        Create Your WISP Now
+    </a>
+</div>
+
+<!-- FAQ Section -->
+<div class="mt-16">
+    <h2 class="text-3xl font-bold text-secondary text-center mb-12">Frequently Asked Questions</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-card">
+            <h4 class="font-semibold text-secondary mb-4">What is a WISP?</h4>
+            <p class="text-gray-600">
+                A Written Information Security Plan (WISP) is a document that outlines how your business protects sensitive customer information, required by IRS regulations and GLBA.
+            </p>
+        </div>
+        <div class="bg-white rounded-2xl p-8 shadow-card">
+            <h4 class="font-semibold text-secondary mb-4">Who needs a WISP?</h4>
+            <p class="text-gray-600">
+                Any business that handles sensitive customer information, including accounting firms, financial advisors, legal practices, and healthcare providers.
+            </p>
+        </div>
+        <div class="bg-white rounded-2xl p-8 shadow-card">
+            <h4 class="font-semibold text-secondary mb-4">How long does it take?</h4>
+            <p class="text-gray-600">
+                Most businesses can complete the wizard and generate their WISP in 15-30 minutes, depending on the complexity of their operations.
+            </p>
+        </div>
+        <div class="bg-white rounded-2xl p-8 shadow-card">
+            <h4 class="font-semibold text-secondary mb-4">Is the generated WISP legally compliant?</h4>
+            <p class="text-gray-600">
+                Yes, our templates are based on IRS Publication 4557 and GLBA requirements. However, we recommend reviewing with legal counsel for your specific situation.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Step 2: Data Collection - WISP Generator{% endblock %}
+
+{% block content %}
+<!-- Progress Bar -->
+<div class="mb-8">
+    <div class="flex items-center justify-between mb-4">
+        <h1 class="text-2xl font-bold text-secondary">WISP Creation Wizard</h1>
+        <span class="text-sm text-gray-600">Step {{ step }} of 6</span>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-2">
+        <div class="bg-primary rounded-full h-2 transition-all duration-300" style="width: {{ (step / 6 * 100) }}%"></div>
+    </div>
+    <div class="flex justify-between mt-2 text-xs text-gray-600">
+        <span class="{% if step >= 1 %}text-primary font-semibold{% endif %}">Company Info</span>
+        <span class="{% if step >= 2 %}text-primary font-semibold{% endif %}">Data Collection</span>
+        <span class="{% if step >= 3 %}text-primary font-semibold{% endif %}">Systems</span>
+        <span class="{% if step >= 4 %}text-primary font-semibold{% endif %}">Security Controls</span>
+        <span class="{% if step >= 5 %}text-primary font-semibold{% endif %}">Vendors & Access</span>
+        <span class="{% if step >= 6 %}text-primary font-semibold{% endif %}">Employee Training</span>
+    </div>
+</div>
+
+<div class="max-w-4xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Form -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-2xl shadow-card p-8">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">Data Collection Practices</h2>
+                    <p class="text-gray-600">
+                        Understanding what personal information you collect and how you handle it is crucial for compliance.
+                    </p>
+                </div>
+
+                <form method="POST" class="space-y-6">
+                    {{ form.hidden_tag() }}
+                    
+                    <div>
+                        <label for="{{ form.personal_info_types.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                            What types of personal information does your business collect?
+                            <span class="text-red-500">*</span>
+                            <span class="relative inline-block ml-2" data-tooltip="Different data types have different security requirements">
+                                <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </span>
+                        </label>
+                        {{ form.personal_info_types(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors") }}
+                        {% if form.personal_info_types.errors %}
+                            <div class="mt-1 text-sm text-red-600">
+                                {% for error in form.personal_info_types.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.data_sources.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                            Data Collection Sources
+                            <span class="relative inline-block ml-2" data-tooltip="Examples: client intake forms, online applications, phone calls, email correspondence">
+                                <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </span>
+                        </label>
+                        {{ form.data_sources(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors", rows="4", placeholder="Describe how and where you collect personal information (e.g., client intake forms, online applications, phone interviews, etc.)") }}
+                        <p class="mt-1 text-sm text-gray-500">{{ form.data_sources.description }}</p>
+                    </div>
+
+                    <div>
+                        <label for="{{ form.data_retention.id }}" class="block text-sm font-semibold text-secondary mb-2">
+                            How long do you retain client data?
+                            <span class="text-red-500">*</span>
+                            <span class="relative inline-block ml-2" data-tooltip="Retention periods should align with legal requirements and business needs">
+                                <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </span>
+                        </label>
+                        {{ form.data_retention(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors") }}
+                        {% if form.data_retention.errors %}
+                            <div class="mt-1 text-sm text-red-600">
+                                {% for error in form.data_retention.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-center">
+                            {{ form.data_destruction(class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded") }}
+                            <label for="{{ form.data_destruction.id }}" class="ml-3 text-sm font-medium text-secondary">
+                                Do you have a process to destroy data when no longer needed?
+                                <span class="relative inline-block ml-2" data-tooltip="Data destruction policies are required for compliance">
+                                    <svg class="w-4 h-4 text-gray-400 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </span>
+                            </label>
+                        </div>
+                        <p class="ml-7 text-sm text-gray-600">
+                            This includes secure deletion of electronic files and proper disposal of physical documents.
+                        </p>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between pt-6 border-t border-gray-200">
+                        <a href="{{ url_for('wizard_step', step=1) }}" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold transition-colors">
+                            <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                            Previous
+                        </a>
+                        <button type="submit" class="bg-primary hover:bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors shadow-md">
+                            Next: Systems Used
+                            <svg class="w-4 h-4 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+            <div class="bg-primary/5 rounded-2xl p-6 mb-6">
+                <h3 class="text-lg font-semibold text-secondary mb-4">Common Data Types</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li>• Names and contact information</li>
+                    <li>• Social Security Numbers</li>
+                    <li>• Financial account information</li>
+                    <li>• Tax return data</li>
+                    <li>• Employment records</li>
+                    <li>• Business financial information</li>
+                    <li>• Health information (if applicable)</li>
+                </ul>
+            </div>
+
+            <div class="bg-amber-50 rounded-2xl p-6 border border-amber-200">
+                <h3 class="text-lg font-semibold text-amber-800 mb-4">Important Note</h3>
+                <p class="text-sm text-amber-700">
+                    The IRS requires businesses that handle tax return information to implement specific safeguards based on the types of data collected.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
