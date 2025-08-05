@@ -29,7 +29,6 @@ The WISP IRS Generator is a comprehensive web application that helps businesses 
 - **Annual Review Reminders** - Track when WISPs need updating
 
 ### 🎨 Professional Design
-- **Rightworks Color Scheme** - Primary blue (#2261AE), slate gray (#2A4159), teal accent (#00B2A9)
 - **Modern UI** - Soft drop shadows, rounded corners, card-based layout
 - **Responsive Design** - Works on desktop and mobile devices
 
