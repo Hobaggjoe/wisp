@@ -168,7 +168,6 @@ If you encounter any issues or have questions:
 
 ## 🎉 Acknowledgments
 
-- Design inspiration from [Rightworks.com](https://rightworks.com)
 - Built for IRS compliance and professional tax preparation firms
 - Tailwind CSS for responsive design
 - ReportLab for professional PDF generation
